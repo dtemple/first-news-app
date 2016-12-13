@@ -16,9 +16,6 @@ app = Flask(__name__)
 def get_csv(x):
     url = x
     s = requests.get(url).content
-
-
-# TODO it's trying to read a file
     cols = ['message_id', 'conversation_id', 'segment', 'direction', 'status', 'inbox', 'msg_date', 'reaction_time',
             'resolution_time', 'resp_time', 'assignee',
             'author', 'contact_name', 'contact_handle', 'to', 'cc', 'bcc', 'extract', 'tags']
@@ -94,6 +91,8 @@ def get_results(jsonData):
 #    queryJson=x['_results']['query']
 #    return queryJson
 
+# TODO Transform the created at date
+
 @app.route("/")
 def index():
     template = 'index.html'
@@ -101,7 +100,6 @@ def index():
     results_objects = get_results(fullJson)
     #query_objects = get_query(fullJson)
     return render_template(template, results_objects=results_objects)
-
 
 @app.route('/<row_id>/')
 def detail(row_id):
